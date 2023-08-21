@@ -1,25 +1,34 @@
-function getData(e){
-    e.preventdefault
-    s = document.getElementById("salary").value;
-    b = document.getElementById("benefits").value;
-    if(s.length ==0 || b.length ==0){
-        document.getElementById("myform").innerText = "Enter value"
-    }else{
-        document.getElementById("submit").innerText
-    }
-    // let gs = find_gross_salary(s,b);
-    // document.getElementById('')
-}
+let myform = document.getElementById('myform');
+myform.addEventListener("submit",
+    function getData(e) {
+        e.preventDefault() 
+        s = document.getElementById("salary").value;
+        b = document.getElementById("benefits").value;
+        // alert(s)
+        if (s.length == 0 || b.length == 0) {
+            document.getElementById("error").innerText = "Enter value"
+        } else {
+            document.getElementById("mygross").innerText = toString(find_gross_salary(basicSalary, Benefits))
+        }
+    });
 
-function find_gross_salary(basicSalary,Benefits) {
-    
+// let gs = find_gross_salary(s,b);
+// document.getElementById('')
+
+
+function  find_gross_salary(basicSalary, Benefits){
+
     let gross_salary = basicSalary + Benefits
     return gross_salary;
 }
 
 
-let calcGross = find_gross_salary(basicSalary,Benefits)
-// document.getElementById('salary')
+function link_gross(){
+    document.getElementById("mygross").innerText = find_gross_salary(
+    Number(document.getElementById("salary").value),
+    Number(document.getElementById("benefits").value)
+    )
+}
 
 // function for nhif calculations
 function find_NHIF(gross_salary) {
@@ -37,7 +46,7 @@ function find_NHIF(gross_salary) {
         nhif = 500
 
     } else if (gross_salary >= 15000 && gross_salary <= 19999) {
-        nhif= 600
+        nhif = 600
 
     } else if (gross_salary >= 20000 && gross_salary <= 24999) {
         nhif = 750
@@ -77,8 +86,12 @@ function find_NHIF(gross_salary) {
     }
     return nhif
 }
+function link_nhif() {
+    document.getElementById("nhif").innerText = find_NHIF(
+      document.getElementById("mygross").value
+    )
+  }
 
-let calcNHIF = find_NHIF(calcGross)
 
 // finding NSSF
 function find_NSSF(gross_salary, rate = 0.06) {
@@ -90,29 +103,48 @@ function find_NSSF(gross_salary, rate = 0.06) {
     }
     return nssf
 }
-let calcNSSF = find_NSSF(calcGross, rate = 0.06)
+function link_nssf(){
+    document.getElementById("nssf").innerText = find_NSSF(
+        document.getElementById("mygross").value
+      )
+}
 
 // finding NHDF
 function findNHDF(gross_salary, amount = 0.03) {
     let nhdf = gross_salary * amount
     return nhdf
 }
-let calcNHDF = findNHDF(calcGross, amount = 0.03)
+function link_nhdf(){
+    document.getElementById("nhdf").innerText = findNHDF(
+        document.getElementById("mygross").value
+      )
+}
 
 //finding nssf
-function NSSF_NHDFtotal(nssf,nhdf) {
+function NSSF_NHDFtotal(nssf, nhdf) {
     let total = nssf + nhdf
     return total
 }
-let calcTotal = NSSF_NHDFtotal(calcNSSF, calcNHDF)
-
+function link_nssf_nhdf_total(){
+    document.getElementById("total").innerText = NSSF_NHDFtotal(
+        Number( document.getElementById("nssf").value),
+        Number(document.getElementById("nhdf").value)
+      )
+    }
 // finding taxable_income
 
 function findtaxable_income(gross_salary, total) {
     let taxable_income = gross_salary - total
     return taxable_income
 }
-let calcTaxable_income = findtaxable_income(calcGross, calcTotal)
+function link_taxableincome(){
+    document.getElementById("taxable_income").innerText = findtaxable_income(
+         document.getElementById("mygross").value,
+        document.getElementById("total").value
+      )
+}
+
+// let calcTaxable_income = findtaxable_income(calcGross, calcTotal)
 
 // finding payee
 
@@ -127,9 +159,9 @@ function findPAYEE(taxable_income, personal_relief = 2400) {
     } else if (taxable_income <= 500000) {
         grosspayee = ((taxable_income - 32333) * 0.30) + 4483.25
         netpayee = grosspayee - personal_relief
-    // }else if ( taxable_income > 500000 && taxable_income <= 800000) {
-    //     grosspayee = ((taxable_income - 500000) * 0.325) + 144, 783.35
-    //     netpayee = grosspayee - personal_relief
+        // }else if ( taxable_income > 500000 && taxable_income <= 800000) {
+        //     grosspayee = ((taxable_income - 500000) * 0.325) + 144, 783.35
+        //     netpayee = grosspayee - personal_relief
     } else if (taxable_income > 500000) {
         grosspayee = ((taxable_income - 80000) * 0.35) + 4483.25
         netpayee = grosspayee - personal_relief
@@ -139,14 +171,28 @@ function findPAYEE(taxable_income, personal_relief = 2400) {
     return netpayee
 }
 // storing the function findPAYEE in a variable
-let calcPAYEE = findPAYEE(calcTaxable_income, personal_relief = 2400)
+function link_payee(){
+    document.getElementById("payee").innerText = findPAYEE(
+        document.getElementById("taxable_income").value
+      )
+}
 
 
 // finding individual's net salary using net_salary = gross_salary - (nhif + nhdf +  nssf + payee)
 
 
-function findNetsalary(gross_salary, nhif,nhdf,nssf,netpayee) {
+function findNetsalary(gross_salary, nhif, nhdf, nssf, netpayee) {
     let net_salary = gross_salary - (nhif + nhdf + nssf + netpayee)
     return net_salary
 }
-let calcNetsalary = findNetsalary(calcGross,calcNHIF, calcNHDF, calcNSSF, calcPAYEE)
+function link_netpay(){
+    document.getElementById("netpayee").innerText = findNetsalary(
+        Number(document.getElementById("mygross").innerText),
+        Number(document.getElementById("nhif").innerText),
+        Number(document.getElementById("nhdf").innerText),
+        Number(document.getElementById("nssf").innerText),
+        Number(document.getElementById("payee").innerText)
+      )
+}
+
+// let calcNetsalary = findNetsalary(calcGross, calcNHIF, calcNHDF, calcNSSF, calcPAYEE)
