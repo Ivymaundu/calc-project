@@ -13,12 +13,10 @@
 
     .main {
         position: absolute;
-        height: 700px;
+        height: 500px;
         width: 60%;
-        /* background-color: blueviolet; */
         left: 10%;
     }
-
     table {
         position: absolute;
         width: 100%;
@@ -37,6 +35,63 @@
         height: 40px;
         font-weight: bold;
     }
+    #submit{
+        background-color: rgb(220, 27, 220);
+        width: 10%;
+        height: 40px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.15s;
+    }
+    #submit:hover{
+        opacity: 0.7;
+    }
+    #submit:active{
+        color: rgb(198, 50, 198);
+    }
+    @media screen and (max-width:700px) {
+        .container {
+            position: relative;
+        }
+
+        .main {
+            position: absolute;
+            height: 500px;
+            width: 80%;
+            left: 10%;
+        }
+
+        table {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            top: 450px;
+
+        }
+
+        th {
+            height: 50px;
+            justify-content: center;
+            font-size: x-large;
+        }
+
+        td {
+            height: 20px;
+            font-weight: bold;
+        }
+        #submit{
+            background-color: rgb(220, 27, 220);
+            position: absolute;
+            width: 30%;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    }
+
+    
 </style>
 
 <body>
@@ -56,16 +111,15 @@
                 <!-- <span class="input-group" style="background-color: gray;">KES</span> -->
                 <label>Basic Salary:</label>
                 <span>KES</span>
-                <input type="text" name="basicsalary:" id="salary" placeholder="basic salary.." class="basicsalary"
+                <input type="number" name="basicsalary:" id="salary" placeholder="basic salary.." class="basicsalary" required
                     style="text-align: center; width: 30%;height: 40px;font-size: large;">
-                <label>Benefits:</label>
-                <span>KES</span>
-                <input type="text" name="benefits:" id="benefits" placeholder="Benefits.." class="Benefits"
+                <label>Benefits: KES</label>
+                <!-- <span>KES</span> -->
+                <input type="number" name="benefits:" id="benefits" placeholder="Benefits.." class="Benefits"
                     style="text-align: center; width: 30%;height: 40px;font-size: large;">
 
-                <input type="submit" id="submit" 
-                    style="background-color: rgb(220, 27, 220);width: 10%;height: 40px;border-radius: 5%;">
-                
+                <input type="submit" id="submit">
+
                 <div style="color:red;" id="error"></div>
 
                 <hr>
@@ -123,7 +177,7 @@
     </div>
 
     <script src="payroll.js"></script>
-
+    
 </body>
 
 </html>

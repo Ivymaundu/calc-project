@@ -10,7 +10,6 @@ myform.addEventListener("submit",
 
         let calc_nhif = find_NHIF(calc_gross)
         document.getElementById("nhif").innerText = calc_nhif
-        
 
         let calc_nssf = find_NSSF(calc_gross)
         document.getElementById("nssf").innerText  = calc_nssf
@@ -28,8 +27,7 @@ myform.addEventListener("submit",
         document.getElementById("payee").innerText  = calc_payee
         
         let calc_net_pay = findNetsalary(calc_gross, calc_nhif, calc_nhdf, calc_nssf, calc_payee)
-        document.getElementById("netpayee").innerText=calc_net_pay
-        alert(calc_net_pay)
+        document.getElementById("netpayee").innerText = calc_net_pay
     });
 
 
@@ -45,7 +43,7 @@ function find_gross_salary(basicSalary, benefits) {
 // function for nhif calculations
 function find_NHIF(gross_salary) {
     nhif = 0
-    if (gross_salary <= 5999) {
+    if (gross_salary>0 && gross_salary <= 5999) {
         nhif = 150
 
     } else if (gross_salary >= 6000 && gross_salary <= 7999) {
@@ -104,17 +102,26 @@ function find_NHIF(gross_salary) {
 
 // finding NSSF
 function find_NSSF(gross_salary, rate = 0.06) {
+    nssf = 0
     if (gross_salary > 0 && gross_salary <= 18000) {
         nssf = (gross_salary * rate)
-    } else {
+    } else if(gross_salary>18000){
         nssf = 18000 * rate
+    }else{
+        nssf=0
     }
     return nssf
 }
 
 // finding NHDF
 function findNHDF(gross_salary, amount = 0.03) {
-    let nhdf = gross_salary * amount
+    nhdf = 0
+    if(gross_salary <= 83333){
+        nhdf = gross_salary * amount
+    }
+    else {
+        nhdf =2500
+    }
     return nhdf
 }
 
@@ -130,12 +137,6 @@ function findtaxable_income(gross_salary, total) {
     let taxable_income = gross_salary - total
     return taxable_income
 }
-// function link_taxableincome(){
-//     document.getElementById("taxable_income").innerText = findtaxable_income(
-//          document.getElementById("mygross").value,
-//         document.getElementById("total").value
-//       )
-// }
 
 // let calcTaxable_income = findtaxable_income(calcGross, calcTotal)
 
@@ -143,22 +144,22 @@ function findtaxable_income(gross_salary, total) {
 
 function findPAYEE(taxable_income, personal_relief = 2400) {
     netpayee = 0
-    if (taxable_income <= 24000) {
+    if (taxable_income>0 && taxable_income <= 24000) {
         grosspayee = 24000 * 0.1
-        netpayee = grosspayee - personal_relief
-    } else if (taxable_income <= 32, 333) {
+        netpayee = Math.round(grosspayee - personal_relief)
+    } else if (taxable_income <= 32333) {
         grosspayee = ((taxable_income - 24000) * 0.25) + 2400
-        netpayee = grosspayee - personal_relief
+        netpayee = Math.round(grosspayee - personal_relief)
     } else if (taxable_income <= 500000) {
         grosspayee = ((taxable_income - 32333) * 0.30) + 4483.25
+        netpayee = Math.round(grosspayee - personal_relief)
+    } else if (taxable_income <= 800000) {
+        grosspayee = ( (taxable_income - 500000) * 0.325) + 144783.35
+        netpayee = Math.round(grosspayee - personal_relief)
+    }else if (taxable_income > 800000) {
+        grosspayee = ((taxable_income - 800000) * 0.35) + 242283.35
         netpayee = grosspayee - personal_relief
-        // }else if ( taxable_income > 500000 && taxable_income <= 800000) {
-        //     grosspayee = ((taxable_income - 500000) * 0.325) + 144, 783.35
-        //     netpayee = grosspayee - personal_relief
-    } else if (taxable_income > 500000) {
-        grosspayee = ((taxable_income - 80000) * 0.35) + 4483.25
-        netpayee = grosspayee - personal_relief
-    } else {
+    }else {
         netpayee = 0
     }
     return netpayee
@@ -172,7 +173,4 @@ function findNetsalary(gross_salary, nhif, nhdf, nssf, netpayee) {
     return net_salary
 }
 
-
-// let calcNetsalary = findNetsalary(calcGross, calcNHIF, calcNHDF, calcNSSF, calcPAYEE)
-// console.log(find_NHIF())
 
