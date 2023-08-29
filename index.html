@@ -5,179 +5,231 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<style>
-    .container {
-        position: relative;
-    }
-
-    .main {
-        position: absolute;
-        height: 500px;
-        width: 60%;
-        left: 10%;
-    }
-    table {
-        position: absolute;
-        width: 100%;
-        height: 10px;
-        top: 350px;
-
-    }
-
-    th {
-        height: 50px;
-        justify-content: center;
-        font-size: x-large;
-    }
-
-    td {
-        height: 40px;
-        font-weight: bold;
-    }
-    #submit{
-        background-color: rgb(220, 27, 220);
-        width: 10%;
-        height: 40px;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.15s;
-    }
-    #submit:hover{
-        opacity: 0.7;
-    }
-    #submit:active{
-        color: rgb(198, 50, 198);
-    }
-    @media screen and (max-width:700px) {
+    <style>
         .container {
             position: relative;
-        }
-
-        .main {
-            position: absolute;
-            height: 500px;
-            width: 80%;
-            left: 10%;
-        }
-
-        table {
-            position: absolute;
+            background-color: lightslategrey;
+            height: 1600px;
             width: 100%;
-            height: 100px;
-            top: 450px;
-
         }
 
-        th {
-            height: 50px;
-            justify-content: center;
-            font-size: x-large;
-        }
-
-        td {
-            height: 20px;
-            font-weight: bold;
-        }
-        #submit{
-            background-color: rgb(220, 27, 220);
+        .mycalculator {
             position: absolute;
-            width: 30%;
-            height: 40px;
-            border-radius: 4px;
+            width: 50%;
+            height: 800px;
+            left: 30%;
+            justify-content: center;
+
+        }
+
+        .myheader {
+            position: absolute;
+
+        }
+
+        .mylogo {
+            position: absolute;
+            left: 110%;
+        }
+
+        #myform {
+            position: absolute;
+            top: 150px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #submit {
+            height: 35px;
+            width: 100px;
+            border-radius: 10px;
+            color: azure;
+            background-color: gray;
             cursor: pointer;
         }
 
-    }
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+        }
 
-    
-</style>
+        .mytable {
+            position: absolute;
+            top: 1100px;
+        }
+
+        table {
+            width: 500px;
+        }
+
+        tr {
+            height: 30px;
+        }
+    </style>
+
+</head>
 
 <body>
     <div class="container">
-        <div class="main">
-            <div class="mylogo">
-                <img src="payroll-logo.png" alt="payroll logo" height="100px" width="130px">
-            </div>
-            <hr>
-            </hr>
-            <div class="mytext" style="font-family: Arial, Helvetica, sans-serif;">
+        <div class="payroll_image">
+            <img src="p.roll-removebg-preview.png" alt="roll-removebg-preview">
+        </div>
+        <div class="mycalculator">
+            <div class="myheader">
+                <div class="mylogo">
+                    <img src="pday-removebg-preview.png" alt="pday-removebg-preview" width="100px" height="80px">
+                </div>
                 <h1>NET PAY CALCULATOR</h1>
-                <p>Enter the gross salary below amount to calculate your net amount.</p>
+                <P>Enter your basic salary and benefits</P>
             </div>
             <form id="myform">
-
-                <!-- <span class="input-group" style="background-color: gray;">KES</span> -->
-                <label>Basic Salary:</label>
-                <span>KES</span>
-                <input type="number" name="basicsalary:" id="salary" placeholder="basic salary.." class="basicsalary" required
-                    style="text-align: center; width: 30%;height: 40px;font-size: large;">
-                <label>Benefits: KES</label>
-                <!-- <span>KES</span> -->
+                <!-- form inputs -->
+                <label>Basic Salary</label>
+                <span>:KES</span>
+                <input type="number" name="basicsalary:" id="salary" placeholder="basic salary.." class="basicsalary"
+                    required style="height: 30px;border-radius: 7px;">
+                <br>
+                <br>
+                <label>Benefits</label>
+                <span>:KES</span>
                 <input type="number" name="benefits:" id="benefits" placeholder="Benefits.." class="Benefits"
-                    style="text-align: center; width: 30%;height: 40px;font-size: large;">
-
-                <input type="submit" id="submit">
-
-                <div style="color:red;" id="error"></div>
-
+                    style="height: 30px;border-radius: 7px;">
+                <br>
+                <br>
+                <input type="radio" name="duration" id="monthly" value="monthly" required>
+                <label for="monthly">Monthly</label>
+                <input type="radio" name="duration" id="annual" value="yearly">
+                <label for="annual">Annual</label>
+                <br>
+                <br>
+                <input type="submit" id="submit" value="Calculate">
                 <hr>
-                </hr>
-
-                <table class="group" border="2">
-                    <div class="myhearder">
-
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-
-                                <th>Result</th>
-                            </tr>
-                        </thead>
-                    </div>
-                    <tr>
-                        <td>Gross salary</td>
-                        <td id="mygross"></td>
+                <table class="tlist" style="width: 440px;">
+                    
+                    <tr style="height: 30px">
+                        <td>GROSS SALARY</td>
+                        <td id="mygross"><b></b></td>
                     </tr>
-                    <tr>
+
+
+                    <tr style="height: 40px">
                         <td>NHIF</td>
-                        <td id="nhif"></td>
-                    </tr><br></br>
-                    <tr>
-                        <td>NSSF</td>
-                        <td id="nssf"></td>
-                    </tr><br></br>
-                    <tr>
-                        <td>NHDF</td>
-                        <td id="nhdf"></td>
-                    </tr><br></br>
-                    <tr style="display: none;">
-                        <td>NHDF_NSSF total</td>
-                        <td id="total"></td>
-                    </tr><br></br>
-                    <tr>
-                        <td>Taxable income</td>
-                        <td id="taxable_income"></td>
-                    </tr><br></br>
-                    <tr>
-                        <td>Final PAYEE</td>
-                        <td id="payee"></td>
-                    </tr><br></br>
-                    <tr>
-                        <td>Net Pay</td>
-                        <td id="netpayee"></td>
+                        <td id="nhif"><b></b></td>
                     </tr>
 
+                    <tr style="height: 40px">
 
+                        <td>NSSF</td>
+                        <td id="nssf"><b></b></td>
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>NHDF</td>
+                        <td id="nhdf"><b></b></td>
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>TAXABLE INCOME</td>
+                        <td id="taxable-income"><b></b></td>
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>PAYE</td>
+                        <td id="payee"><b></b></td>
+
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>NET SALARY</td>
+                        <td id="netpay"><b></b></td>
+                    </tr>
                 </table>
-
+                <!-- <br>
+                <br>
+                <br>
+                <label>Gross salary :</label>
+                <input type="text" name="gross" id="mygross" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>NHIF :</label>
+                <input type="text" name="nhif" id="nhif" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>NSSF :</label>
+                <input type="text" name="nssf" id="nssf" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>NHDF :</label>
+                <input type="text" name="nhdf" id="nhdf" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>Taxable Income :</label>
+                <input type="text" name="taxable-income" id="taxable-income" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>Payee :</label>
+                <input type="text" name="payee" id="payee" readonly style="height: 20px;">
+                <br>
+                <br>
+                <label>Net salary :</label>
+                <input type="text" name="gross" id="net-pay" readonly style="height: 20px;"> -->
             </form>
+
+        </div>
+        <div class="mytable">
+            <h1>Monthly taxable income rates</h1>
+            <table g border="1">
+                <thead>
+                    <td>Monthly taxable income (KES)</td>
+                    <td>Tax rate</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0-24,000</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>On the next 8,333</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <td>On the next 467,667</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td>On the next 300,000</td>
+                        <td>32.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Above 800,000</td>
+                        <td>35%</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Personal Relief: KES 2,400.00 per month</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Minimum Taxable Income: KES 24,001.00 per month</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
+    <script src="payrolcalc.js"></script>
+    <!-- <script> -->
+        <!-- // function check_rdio_btn(){
+        //     let monthly = document.getElementById("monthly");
+        //     let annual = document.getElementById("annual");
 
-    <script src="payroll.js"></script>
-    
+        //     if(monthly.checked==true){
+        //         alert("the button checked is: "+ monthly.value)
+        //     }
+        //     else if(annual.checked==true){
+        //         alert("the button checked is: "+ annual.value)
+        //     }
+        //     else{
+        //         alert("no button checked")
+        //     }
+
+        // }
+    // </script> -->
 </body>
 
 </html>
